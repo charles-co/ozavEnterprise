@@ -1,0 +1,34 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>{% block title %} Ozav {% endblock %}</title>
+        <meta name="keywords" content="" />
+        <meta name="description" content="" />
+        <link rel='shortcut icon' href="{% static 'image/favicon.ico' %}">
+        <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">  
+        <link rel="stylesheet" href="{% static 'css/base.css' %}">  
+        <link rel="stylesheet" href="{% static 'css/animate.css' %}">  
+        <link rel="stylesheet" href="{% static 'css/all.min.css' %}">  
+        {% block style %}{% endblock style %}
+    </head>
+    <body id="body">
+        <div class="container-fluid">
+            <div class="flex flex-row align-items-center justify-content-center">
+                <h1>{{ error_message }}</h1>
+                <section class="error-container">
+                <span>{% if error == "500"%}5{% else %}4{% endif %}</span>
+                <span><span class="screen-reader-text">0</span></span>
+                <span>{% if error == "404"%}4{% else %}0{% endif %}</span>
+                </section>
+                <div class="link-container">
+                    <a href="{{ request.META.HTTP_REFERER }}" class="more-link">Go Back</a>
+                    <a href="{% url 'index' %}" class="more-link">Home</a>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

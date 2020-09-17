@@ -1,0 +1,10 @@
+[
+{
+  "model": "events.event",
+  "pk": 4,
+  "fields": {
+    "name": "Celebration",
+    "created": "2020-09-10T10:32:35.050Z"
+  }
+}
+]

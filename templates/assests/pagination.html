@@ -1,0 +1,17 @@
+{% if is_paginated %}
+    {% if page_obj.has_next %}
+    <a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}"></a>
+
+    <div class="d-flex justify-content-center ez-animate-group" style="display:none;">
+        <div class="spinner-grow ez-animate m-1 text-danger" style="width:10px;height:10px;" role="status" data-animation="flash">
+            <poan class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow ez-animate m-1 text-warning" role="status" style="width:10px;height:10px;" data-animation="flash" data-animation-delay=".1s">
+            <poan class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow ez-animate m-1 text-success" role="status" style="width:10px;height:10px;" data-animation="flash" data-animation-delay=".2s">
+            <poan class="sr-only">Loading...</span>
+        </div>
+    </div>
+    {% endif %}
+{% endif %}

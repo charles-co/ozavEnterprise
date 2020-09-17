@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load extras %}
+{% block style %}
+<style>
+   
+</style>
+{% endblock style %}
+
+{% block content %}
+{% comment %} <section class="home"></section> {% endcomment %}
+<div class="top-margin"></div>
+<div class="container" >
+    <div class="row mb-2">
+        <div class="col-12 border-bottom">
+            <p class="display-4 text-center">Events</p>
+            <p class="text-center"><a href={% url 'index' %}> <i class="fas fa-home"></i> Home</a><span class="text-muted"> / Events </span></p>
+
+        </div>
+    </div>
+    <div class="row infinite-container ez-animate-group">
+        {% for event in event_list %}
+        {% for image in event.image.all %}
+        <div class="col-12 col-lg-4 col-md-6 infinite-item ez-animate" data-animation="{% cycle 'backInUp' 'backInRight' 'backInDown' 'backInLeft' %}">
+            <figure class="figure" >
+                {{ image.render }}
+                <figcaption class="figure-caption text-center">{{ event.name }}</figcaption>
+            </figure>
+
+        </div>
+        {% endfor %}
+        {% endfor %}
+        
+    </div>
+    {% if page_obj.has_next %}
+    <a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}"></a>
+    <div class="d-flex justify-content-center" style="display:none;">
+        <div class="spinner-border" role="status">
+            <poan class="sr-only">Loading...</span>
+        </div>
+    </div>
+    {% endif %}
+
+</div>
+{% endblock content %}
+{% block javascript %}
+<script src="{% static 'js/jquery.waypoints.min.js' %}"></script>
+<script src="{% static 'js/infinite.min.js' %}"></script>
+<script>
+    var infinite = new Waypoint.Infinite({
+        element: $('.infinite-container')[0],
+        handler: function(direction){
+
+    },
+    offset: 'bottom-in-view',
+
+    onBeforePageLoad: function(){
+        $('.spinner-border').show();
+
+    },
+    onBeforePageLoad: function(){
+        $('.spinner-border').hide();
+    }
+    
+    });
+
+</script>
+{% endblock javascript %} 

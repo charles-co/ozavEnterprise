@@ -1,0 +1,15 @@
+{% load static %}
+{% load mptt_tags %}
+
+{% recursetree menus %}
+    {% if node.slug == "home"%}
+    <li><a href={% url 'index' %}><i class="fas fa-home"></i> {{ node.name }}</a></li>
+    {% else %}
+    <li><a href={% url 'products:navigation' node.slug %}>{{ node.name }}</a></li>
+    {% endif %}
+    {% if not node.is_leaf_node %}
+    <ul class="children d-none">
+        <a href="#">{{ children }}</a>
+    </ul>
+    {% endif %}
+{% endrecursetree %}

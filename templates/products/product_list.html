@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load extras %}
+
+{% block style %}
+<style>
+
+</style>
+{% endblock style %}
+
+{% block content %}
+
+<div class="top-margin"></div>
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <p class="text-left"><a href={% url 'index' %}> <i class="fas fa-home"></i> Home</a><span class="text-muted"> / {{ sub }}</span></p>
+        </div>
+    </div>
+    <div class="row infinite-container mb-3 ez-animate-group">
+        {% for product in product_list %}
+        <div class="col-md-4 col-6 card infinite-container shadow-sm h-100 border-0 mx-auto col-lg-3 overflow-hidden ez-animate" data-animation="{% cycle "fadeInLeft" "fadeInRight" %}" style="height:400px;">
+            {% if product.image %}
+            <div class="d-flex align-items-center justify-content-center overflow-hidden test2" style="max-height:150px;">
+                {{ product.image.first.render }}
+            </div>
+            {% endif %}
+            <div class="card-body pt-0 " style="max-height:250px;">
+                <h5 class="card-title" style="font-size:1.9em">{{ product.name }}</h5>
+                {% if product.old_price %} <del class="card-text text-danger" style="font-size:1.1em">{{ product.old_price|currency }}</del> {% endif %}<p class="card-text mb-0" style="font-size:1.5em">{{ product.price|currency }}</p>
+                <a href="{{ product.get_absolute_url }}" class="btn btn-dark btn-lg active rounded-0 text-center d-inline-block" role="button" aria-pressed="true">Read More</a>
+            </div>
+        </div>
+        {% empty %}
+        <p> Nothing to show </p>
+        {% endfor %}
+        
+    </div>
+
+    {% include 'assests/pagination.html'%}
+
+</div>
+{% endblock content %}
+{% block javascript %}
+<script src="{% static 'js/infinite.min.js' %}"></script>
+<script>
+    var infinite = new Waypoint.Infinite({
+        element: $('.infinite-container')[0],
+        handler: function(direction){
+
+    },
+    offset: 'bottom-in-view',
+
+    onBeforePageLoad: function(){
+        $('.spinner-border').show();
+
+    },
+    onAfterPageLoad: function(){
+        $('.spinner-border').hide();
+    }
+    
+    });
+
+</script>
+{% endblock javascript %} 
