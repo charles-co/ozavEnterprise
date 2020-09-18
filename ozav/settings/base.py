@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+import dj_database_url
 
 from dotenv import load_dotenv, find_dotenv
 load_dotenv(find_dotenv())
@@ -29,7 +30,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.43.184', '127.0.0.1',]
+ALLOWED_HOSTS = ['192.168.43.184', '127.0.0.1', 'ozav.herokuapp.com',]
 
 
 # Application definition
@@ -51,6 +52,7 @@ INSTALLED_APPS = [
     'embed_video',
     'markdown_deux',
     'admin_honeypot',
+    'whitenoise.runserver_nostatic'
 
 
 ]
@@ -70,11 +72,13 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 ROOT_URLCONF = 'ozav.urls'
 
 TEMPLATES = [

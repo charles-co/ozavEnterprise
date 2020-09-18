@@ -7,7 +7,7 @@ ADMINS = (
 ('Charles O.', 'ch4rles.co@gmail.com'),
 )
 
-ALLOWED_HOSTS = ['ozav.com', 'www.ozav.com', '127.0.0.1']
+ALLOWED_HOSTS = ['ozav.herokuapp.com',]
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
