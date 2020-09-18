@@ -22,3 +22,5 @@ urllib3==1.25.9
 gunicorn
 dj-database-url
 whitenoise
+django-admin-honeypot
+
