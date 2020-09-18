@@ -15,8 +15,8 @@ from products.forms import ContactPostForm
 
 class ProductsViews(ListView):
     model = Product
-    paginate_by = 10
-    paginate_orphans = 4
+    paginate_by = 6
+    paginate_orphans = 2
     template_name = 'products/product_list.html'
     
     def get_queryset(self):

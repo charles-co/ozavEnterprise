@@ -18,8 +18,8 @@ from products.models import Product, Menu
 
 class Home(ListView):
     model = Product
-    paginate_by = 10
-    paginate_orphans = 4
+    paginate_by = 6
+    paginate_orphans = 2
     template_name = 'index.html'
     
     def get_queryset(self):
