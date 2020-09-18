@@ -13,6 +13,7 @@ django-taggit==1.2.0
 humanize==0.5.1
 idna==2.9
 Pillow==7.1.2
+python_dotenv
 psycopg2==2.8.5
 pytz==2020.1
 requests==2.23.0
