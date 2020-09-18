@@ -11,7 +11,6 @@
 {% block content %}
 
 <div class="top-margin"></div>
-
 <div class="container">
     <div class="row">
         <div class="col">
@@ -53,11 +52,11 @@
     offset: 'bottom-in-view',
 
     onBeforePageLoad: function(){
-        $('.spinner-border').show();
+        $('.spinner-grow').show();
 
     },
     onAfterPageLoad: function(){
-        $('.spinner-border').hide();
+        $('.spinner-grow').hide();
     }
     
     });
