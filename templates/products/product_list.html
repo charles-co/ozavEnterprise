@@ -25,20 +25,17 @@
                 {{ product.image.first.render }}
             </div>
             {% endif %}
-            <div class="card-body pt-0 " style="max-height:250px;">
+            <div class="card-body pt-0" style="max-height:250px;">
                 <h5 class="card-title" style="font-size:1.9em">{{ product.name }}</h5>
-                {% if product.old_price %} <del class="card-text text-danger" style="font-size:1.1em">{{ product.old_price|currency }}</del> {% endif %}<p class="card-text mb-0" style="font-size:1.5em">{{ product.price|currency }}</p>
-                <a href="{{ product.get_absolute_url }}" class="btn btn-dark btn-lg active rounded-0 text-center d-inline-block" role="button" aria-pressed="true">Read More</a>
+                {% if product.old_price %}<del class="card-text text-danger" style="font-size:1.1em">{{ product.old_price|currency }}</del> {% endif %}<p class="card-text mb-0" style="font-size:1.5em">{{ product.price|currency }}</p>
+                <a href="{% url 'products:collection-product-detail' product.slug %}" class="btn btn-dark btn-lg active rounded-0 text-center d-inline-block" role="button" aria-pressed="true">Read More</a>
             </div>
         </div>
         {% empty %}
         <p> Nothing to show </p>
-        {% endfor %}
-        
+        {% endfor %}        
     </div>
-
     {% include 'assests/pagination.html'%}
-
 </div>
 {% endblock content %}
 {% block javascript %}
