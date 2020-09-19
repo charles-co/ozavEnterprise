@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load extras %}
-
 {% block style %}
 <style>
     .carousel-indicators li {
@@ -35,7 +34,7 @@
 <div class="container">
     <div class="row justify-content-center justify-content-lg-between mb-5">
         <div class="col-11 col-lg-6">
-            {% if sub %}<p class="text-left"><a href={% url 'index' %}> <i class="fas fa-home"></i> Home</a><span class="text-muted"> / {{ sub }}</span></p>{% endif %}
+            {% if sub %}<p class="text-left"><a href={% url 'index' %}><i class="fas fa-home"></i> Home</a><span class="text-muted"> / {{ sub }}</span></p>{% endif %}
             <div class="card mb-3 border-0">
                 {% if product.image.count == 1 %}
                     {{ product.image.first.render }}
@@ -61,13 +60,10 @@
                     </div>
                 </div>
                 {% endif %}
-
                 <div class="card-body">
                     <h2 class="card-title font-weight-bolder">{{ product.name }}</h2>
                     {% if product.old_price %}<del class="card-text text-danger h3">{{ product.old_price|currency }}</del>{% endif %}<p class="display-4 card-text">{{ product.price|currency }}</p>
-                    </br>
-                </div>  
-                         
+                </div>                          
             </div>
 
             <div class="jumbotron d-lg-none">
@@ -109,7 +105,7 @@
                                 </div>    
                                 <div class="card-body py-0" style="height:150px;">
                                     <h2 class="card-title font-weight-bold">{{ p.name }}</h2>
-                                    {% if p.old_price %}<del class="card-text text-danger h3"> {{ p.old_price|currency }} </del>{% endif %} <p class="display-4 card-text">{{ p.price|currency }}</p>
+                                    {% if p.old_price %}<del class="card-text text-danger h3">{{ p.old_price|currency }}</del>{% endif %}<p class="display-4 card-text">{{ p.price|currency }}</p>
                                 </div>
                             </a>
                         </div>
@@ -141,7 +137,7 @@
                             </div>
                             <div class="card-body py-0" style="height:150px;">
                                 <h2 class="card-title font-weight-bold">{{ p.name }}</h2>
-                                {% if p.old_price %}<del class="card-text text-danger h3"> {{ p.old_price|currency }} </del>{% endif %} <p class="display-4 card-text">{{ p.price|currency }}</p>
+                                {% if p.old_price %}<del class="card-text text-danger h3">{{ p.old_price|currency }}</del>{% endif %}<p class="display-4 card-text">{{ p.price|currency }}</p>
                             </div>
                         </div>
                         
@@ -188,7 +184,7 @@
                                 </div>
                                 <div class="card-body py-0" style="height:150px;">
                                     <h2 class="card-title font-weight-bold">{{ p.name }}</h2>
-                                    {% if p.old_price %}<del class="card-text text-danger h3"> {{ p.old_price|currency }} </del>{% endif %} <p class="display-4 card-text">{{ p.price|currency }}</p>
+                                    {% if p.old_price %}<del class="card-text text-danger h3">{{ p.old_price|currency }}</del>{% endif %}<p class="display-4 card-text">{{ p.price|currency }}</p>
                                 </div>
                             </a>
                         </div>
