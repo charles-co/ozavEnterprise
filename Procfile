@@ -1,1 +1,1 @@
-web: guincorn ozav.wsgi --log-file -
+web: gunicorn ozav.wsgi --log-file -
