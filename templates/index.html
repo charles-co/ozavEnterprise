@@ -36,8 +36,7 @@
         </div>
         {% empty %}
         <p> Nothing to show </p>
-        {% endfor %}
-        
+        {% endfor %}   
     </div>
     {% include 'assests/pagination.html'%}
 </div>
@@ -54,11 +53,11 @@
     offset: 'bottom-in-view',
 
     onBeforePageLoad: function(){
-        $('.spinner-border').show();
+        $('.spinner-grow').show();
 
     },
     onAfterPageLoad: function($this){
-        $('.spinner-border').hide();
+        $('.spinner-grow').hide();
     }
     
     });
