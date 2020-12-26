@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load extras %}
+{% load thumbnail %}
 {% block style %}
 <style>
     .carousel-indicators li {
@@ -17,14 +18,30 @@
         position: absolute;
         top: 1.2em;
         height: 0;
-        width: 25%;
+        width: 10%;
         content: '';
         margin-top:5px;
-        margin-buttom:5px;
-
-        border-top: 2px solid #969ca0;;
+        margin-bottom:5px;
+        border-top: 3px solid crimson;
     }
-
+    
+    .swiper-button-next:after, 
+    .swiper-container-rtl,
+    .swiper-button-prev:after{
+        content: none;
+    }
+    .swiper-button-next, 
+    .swiper-button-prev{
+        border-radius: 100%;
+    }
+    .swiper-pagination-bullet{
+        background: transparent;
+        opacity: .8;
+        border: 1px solid black;
+    }
+    .swiper-pagination-bullet-active{
+        background: #000;
+    }
 </style>
 {% endblock style %}
 
@@ -32,14 +49,27 @@
 
 <div class="top-margin"></div>
 <div class="container">
-    <div class="row justify-content-center justify-content-lg-between mb-5">
-        <div class="col-11 col-lg-6">
-            {% if sub %}<p class="text-left"><a href={% url 'index' %}><i class="fas fa-home"></i> Home</a><span class="text-muted"> / {{ sub }}</span></p>{% endif %}
+    <div class="row no-gutters justify-content-center justify-content-md-between mb-5">
+        {% if sub %}<p class="text-left"><a href={% url 'index' %}><i class="fas fa-home"></i> Home</a><span class="text-muted"> / {{ sub }}</span></p>{% endif %}
+        <div class="col-12 col-md-6">
             <div class="card mb-3 border-0">
                 {% if product.image.count == 1 %}
-                    {{ product.image.first.render }}
+                <div class="d-flex align-items-center justify-content-center">
+                    <picture>
+                        {% thumbnail product.image.first.file "263x263" crop="center" as im %}
+                        <source srcset="{{ im.url }}" type="image/svg+xml" media="(max-width: 320px)">
+                        {% endthumbnail %}
+                        {% thumbnail product.image.first.file "350x350" crop="center" as im %}
+                        <source srcset="{{ im.url }}" type="image/svg+xml" media="(min-width: 321px) and (max-width: 991px)">
+                        {% endthumbnail %}
+                        {% thumbnail product.image.first.file "450x450" crop="center" as im %}
+                        <source srcset="{{ im.url }}" type="image/svg+xml" media="(min-width: 992px)">
+                        {% endthumbnail %}
+                        <img src="{{ product.image.first.file.url }}" class="card-img-top mb-0" alt="...">
+                    </picture>
+                </div>
                 {% else %}
-                <div id="carousel-image-detail" class="carousel slide d-flex align-items-center overflow-hidden" style="height:530px;" data-ride="carousel">
+                <div id="carousel-image-detail" class="carousel slide d-flex align-items-center overflow-hidden" data-ride="carousel">
                     <ol class="carousel-indicators justify-content-end mr-0">
                         {% for x in product.image.count|times %}
                         <li data-target="#carousel-image-detail" data-slide-to="{{ forloop.counter0 }}" class="{% if forloop.first %}active{% endif %} bg-dark"></li>
@@ -51,7 +81,18 @@
                             <div class="row">
                                 <div class="card col-12 border-0">
                                     <div class="ez-animate" data-animation="backInDown">
-                                        <img src="{{ image.file.url }}" class="d-block carousel-image mw-100" style="max-height:500px;" alt="{{ product.name }}">
+                                        <picture>
+                                            {% thumbnail image.file "50x50" crop="center" as im %}
+                                            <source srcset="{{ im.url }}" type="image/svg+xml" media="(max-width: 320px)">
+                                            {% endthumbnail %}
+                                            {% thumbnail image.file "350x350" crop="center" as im %}
+                                            <source srcset="{{ im.url }}" type="image/svg+xml" media="(min-width: 321px) and (max-width: 991px)">
+                                            {% endthumbnail %}
+                                            {% thumbnail image.file "450x450" crop="center" as im %}
+                                            <source srcset="{{ im.url }}" type="image/svg+xml" media="(min-width: 992px)">
+                                            {% endthumbnail %}
+                                            <img src="{{ image.file.url }}" class="card-img-top mb-0" alt="...">
+                                        </picture>
                                     </div>    
                                 </div>
                             </div>
@@ -65,47 +106,40 @@
                     {% if product.old_price %}<del class="card-text text-danger h3">{{ product.old_price|currency }}</del>{% endif %}<p class="display-4 card-text">{{ product.price|currency }}</p>
                 </div>                          
             </div>
-
-            <div class="jumbotron d-lg-none">
-                <div class="row justify-content-center">
-                    <h1 class="d-inline-flex mx-auto justify-content-center text-capitalize mb-4 font-weight-light">Casket Description</h1>
-                </div>
-                <h4 class="d-inline-block">{{ product.get_markdown }}</h4>
-            </div>
         </div>
-        <div class="jumbotron row d-none justify-content-center d-lg-block col-lg-6">
-            <div class="row justify-content-center">
-                <h1 class="d-inline-flex justify-content-center mb-4 text-capitalize font-weight-light">Casket Description</h1>
-            </div>
-            <h4 class="d-inline-block">{{ product.get_markdown }}</h4>
+        <div class="jumbotron mb-0 py-0 px-3 py-1 col-12 col-md-5">
+            {{ product.get_markdown }}
         </div>
     </div>
 
     {% if similiar_products %}
     <!-- Tags Carousel -->
-    <div class="row justify-content-center align-content-center">
-        <div class="d-inline-flex col-11 col-lg-12 justify-content-center">
-            <h1 class="d-flex justify-content-center text-uppercase font-weight-light" >related Products</h1>
-        </div>
-        <!-- Tags Carousel for mobile devices -->
-        <div id="carousel-image-detail" class="carousel slide col-11 d-md-none overflow-hidden" style="height:470px;" data-ride="carousel">
-            <ol class="carousel-indicators">
-                {% for x in similiar_products.count|times %}
-                <li data-target="#carousel-tags-sm" data-slide-to="{{ forloop.counter0 }}" class="{% if forloop.first %}active{% endif %} bg-dark"></li>
-                {% endfor %}
-            </ol>
-            <div class="carousel-inner" style="height:440px;">
+    <div class="row no-gutters align-items-center justify-content-center">
+        <h1 class="text-capitalize mt-0 d-flex">related Products</h1>
+        <div class="swiper-container col-12 pb-5">
+            <div class="swiper-wrapper">
                 {% for p in similiar_products %}
-                <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                <div class="swiper-slide">
                     <div class="row">
                         <div class="card col-12 border-0">
                             <a href="{{ p.get_absolute_url }}" class="text-decoration-none text-dark">
-                                <div class=" d-flex align-items-center justify-contents-center overflow-hidden" style="height:250px;">
-                                    <img src="{{ p.image.first.file.url }}" class="d-block carousel-image mw-100" alt="{{ p.name }}">
+                                <div class="d-flex align-items-center justify-content-center overflow-hidden">
+                                    <picture>
+                                        {% thumbnail p.image.first.file "250x250" crop="center" as im %}
+                                        <source srcset="{{ im.url }}" type="image/svg+xml" media="(max-width: 320px)">
+                                        {% endthumbnail %}
+                                        {% thumbnail p.image.first.file "300x300" crop="center" as im %}
+                                        <source srcset="{{ im.url }}" type="image/svg+xml" media="(min-width: 321px) and (max-width: 991px)">
+                                        {% endthumbnail %}
+                                        {% thumbnail p.image.first.file "400x400" crop="center" as im %}
+                                        <source srcset="{{ im.url }}" type="image/svg+xml" media="(min-width: 992px)">
+                                        {% endthumbnail %}
+                                        <img src="{{ p.image.first.file.url }}" class="card-img-top mb-0" alt="...">
+                                    </picture>
                                 </div>    
-                                <div class="card-body py-0" style="height:150px;">
-                                    <h2 class="card-title font-weight-bold">{{ p.name }}</h2>
-                                    {% if p.old_price %}<del class="card-text text-danger h3">{{ p.old_price|currency }}</del>{% endif %}<p class="display-4 card-text">{{ p.price|currency }}</p>
+                                <div class="card-body py-0">
+                                    <h4 class="card-title font-weight-bold">{{ p.name }}</h4>
+                                    {% if p.old_price %}<del class="card-text text-danger h5">{{ p.old_price|currency }}</del>{% endif %}<p class="h4 card-text">{{ p.price|currency }}</p>
                                 </div>
                             </a>
                         </div>
@@ -113,108 +147,51 @@
                 </div>
                 {% endfor %}
             </div>
-        </div>
-        <!--  End of Tags Carousel for mobile devices -->
 
-        <!-- Tags Carousel for tablets -->
-        <div id="carousel-tags-md" class="carousel slide col-11 d-none d-md-block d-lg-none overflow-hidden" style="height:430px;" data-ride="">
-            <ol class="carousel-indicators">
-                {% for x in similiar_products.count|divide:"2"|times %}
-                <li data-target="#carousel-tags-md" data-slide-to="{{ forloop.counter0 }}" class="{% if forloop.first %}active{% endif %} bg-dark"></li>
-                {% endfor %}
-            </ol>
-            <div class="carousel-inner" style="height:400px;">
-                {% for x in similiar_products.count|divide:"2"|times %}
-                <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                    <div class="row no-gutters card-group">
-                        {% with start=forloop.counter0|mulp:"2"|stringformat:"s" %}
-                        {% with end=forloop.counter0|mulp:"2"|add:"2"|stringformat:"s" %}
-                        {% with actual=""|add:start|add:":"|add:end %}
-                        {% for p in similiar_products|slice:actual %}
-                        <div class="card col-6 border-0">
-                            <div class=" d-flex align-items-center justify-contents-center overflow-hidden" style="height:250px;">
-                                <img src="{{ p.image.first.file.url }}" class="card-img-top" alt="...">
-                            </div>
-                            <div class="card-body py-0" style="height:150px;">
-                                <h2 class="card-title font-weight-bold">{{ p.name }}</h2>
-                                {% if p.old_price %}<del class="card-text text-danger h3">{{ p.old_price|currency }}</del>{% endif %}<p class="display-4 card-text">{{ p.price|currency }}</p>
-                            </div>
-                        </div>
-                        
-                        {% endfor %}
-                        {% endwith %}
-                        {% endwith %}
-                        {% endwith %}
-                    </div>
-                </div>
-                {% endfor %}
+            <div class="d-none d-lg-block swiper-button-prev">
+                <i class="fas text-black-50 fa-2x fa-angle-left"></i>
             </div>
-            {% if similiar_products.count|divide:"2"|times|length >= 2 %}
-            <a class="carousel-control-prev" href="#carousel-tags-md" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon bg-danger" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#carousel-tags-md" role="button" data-slide="next">
-                <span class="carousel-control-next-icon bg-danger" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-            </a>
-            {% endif %}
-        </div>
-        <!-- End of Tags Carousel for tablets-->
-
-        <!-- Tags Carousel for large screens -->
-        <div id="carousel-tags-lg" class="carousel slide col-12 d-none d-lg-block overflow-hidden" style="height:470px;" data-ride="carousel">
-            <ol class="carousel-indicators">
-                {% for x in similiar_products.count|divide:"3"|times %}
-                <li data-target="#carousel-tags-lg" data-slide-to="{{ forloop.counter0 }}" class="{% if forloop.first %}active{% endif %} bg-dark"></li>
-                {% endfor %}
-            </ol>
-            <div class="carousel-inner" style="height:440px;">
-                {% for x in similiar_products.count|divide:"3"|times %}
-                <div class="carousel-item {% if forloop.first %}active{% endif %}">     
-                    <div class="row no-gutters card-group">
-                        {% with start=forloop.counter0|mulp:"3"|stringformat:"s" %}
-                        {% with end=forloop.counter0|mulp:"3"|add:"3"|stringformat:"s" %}
-                        {% with actual=""|add:start|add:":"|add:end %}
-                        {% for p in similiar_products|slice:actual %}
-                        <div class="card col-4 border-0">
-                            <a href="{{ p.get_absolute_url }}" class="text-decoration-none text-dark">
-                                <div class=" d-flex align-items-center justify-contents-center overflow-hidden" style="height:250px;">
-                                    <img src="{{ p.image.first.file.url }}" class="card-img-top" alt="...">
-                                </div>
-                                <div class="card-body py-0" style="height:150px;">
-                                    <h2 class="card-title font-weight-bold">{{ p.name }}</h2>
-                                    {% if p.old_price %}<del class="card-text text-danger h3">{{ p.old_price|currency }}</del>{% endif %}<p class="display-4 card-text">{{ p.price|currency }}</p>
-                                </div>
-                            </a>
-                        </div>
-                        {% endfor %}
-                        {% endwith %}
-                        {% endwith %}
-                        {% endwith %}
-                    </div>
-                </div>
-                {% endfor %}
+            <div class="d-none d-lg-block swiper-button-next">
+                <i class="fas text-black-50 fa-2x fa-angle-right"></i>
             </div>
-            {% if similiar_products.count|divide:"3"|times|length >= 2 %}
-            <a class="carousel-control-prev" href="#carousel-tags-lg" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon bg-danger" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#carousel-tags-lg" role="button" data-slide="next">
-                <span class="carousel-control-next-icon bg-danger" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-            </a>
-            {% endif %}
+            <div class="swiper-pagination swiper-pagination-bullets"></div>
         </div>
-        <!-- End of Tags Carousel for large screens -->
     </div>
     <!-- End of Tags Carousel -->
     {% endif %}
-
-    
-    </div>
-    
-    
 </div>
 {% endblock content %}
+{% block javascript %}
+<script>
+    var swiper = new Swiper('.swiper-container', {
+        grabCursor: true,
+        lazy: true,
+        preloadImages: false,
+        watchSlideVisibility: true,
+        autoplay: {
+            delay: 3000,
+            disableOnInteraction: false,
+        },
+        pagination: {
+            el: '.swiper-pagination',
+            dynamicBullets: true,
+        },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev'
+        },
+        breakpoints: {
+            1024: {
+                slidesPerView: 4,
+            },
+            768: {
+                slidesPerView: 3,
+            },
+            320: {
+                slidesPerView: 2,
+                {% comment %} spaceBetween: 10 {% endcomment %}
+            },
+        },
+    })
+</script>
+{% endblock javascript %}

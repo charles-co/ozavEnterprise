@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     
     'products',
     'events',
+
+    'sorl.thumbnail',
     'mptt',
     'pagedown',
     'crispy_forms',
@@ -57,15 +59,15 @@ INSTALLED_APPS = [
 
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
-# EMAIL_HOST          = "smtp.gmail.com" 
-# EMAIL_PORT          = "465"
-# EMAIL_HOST_USER     = "ch4rles.co@gmail.com"
-# EMAIL_HOST_PASSWORD = os.environ.get("GMAIL_PASSWORD")
-# EMAIL_USE_SSL       = True # Yes for Gmail
-# DEFAULT_FROM_EMAIL  = "Charles <ch4rles.co@gmail.com>"
-# SERVER_EMAIL        = DEFAULT_FROM_EMAIL
+EMAIL_HOST          = "smtp.gmail.com" 
+EMAIL_PORT          = "465"
+EMAIL_HOST_USER     = os.environ.get("GMAIL")
+EMAIL_HOST_PASSWORD = os.environ.get("GMAIL_PASSWORD")
+EMAIL_USE_SSL       = True # Yes for Gmail
+DEFAULT_FROM_EMAIL  = "Ozav <" + os.environ.get("GMAIL") + ">"
+SERVER_EMAIL        = DEFAULT_FROM_EMAIL
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -166,4 +168,4 @@ STATICFILES_DIRS = (
 MEDIA_URL ='/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
-PAGEDOWN_IMAGE_UPLOAD_ENABLED=True
+# PAGEDOWN_IMAGE_UPLOAD_ENABLED=True

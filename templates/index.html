@@ -1,44 +1,42 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load thumbnail %}
 {% load extras %}
 {% block content %}
 <section class="home mb-5">
-<div class="container vh-100">
-    <div class="row align-items-center justify-content-left vh-100">
-        <div class="col-4 offset-md-2 ez-animate" data-animation="rotateInDownLeft">
-            <span class="display-4 shadow-sm text-white" style="border:2px solid white;">Welcome <br> Ozav Casket</span>
-
+    <div class="container vh-100">
+        <div class="row p-5 align-items-end justify-content-left vh-100">
+            <div class="col-12 mb-5 animate__animated animate__fadeInUp animate__delay-2s">
+                <span class="display-4 shadow-sm text-white">Welcome<br>Ozav Casket</span>
+            </div>
         </div>
     </div>
-</div>
-
 </section>
-
 <div class="container">
     <div class="row">
         <div class="col">
-            <p class="display-4 text-center ez-animate" data-animation="rotateIn"> Caskets & Coffins</p>
+            <p class="display-4 text-center">Caskets & Coffins</p>
         </div>
     </div>
     <div class="row infinite-container mb-3 list-items ez-animate-group">
         {% for product in product_list %}
-        <div class="col-md-4 col-6 infinite-item ez-animate card bg-transparent shadow-sm h-100 border-0 mx-auto col-lg-3 overflow-hidden" data-animation="{% cycle "fadeInLeft" "fadeInRight" %}" style="max-height:400px;">
+        <div class="col-md-4 col-6 infinite-item ez-animate card bg-transparent shadow-sm border-0 h-100 border-0 mx-auto col-lg-3 overflow-hidden" data-animation="{% cycle "fadeInLeft" "fadeInRight" %}">
             {% if product.image %}
-            <div class="d-flex align-items-center justify-content-center overflow-hidden test2" style="max-height:150px;">
+            <div class="d-flex align-items-center justify-content-center overflow-hidden test2">
                 {{ product.image.first.render }}
             </div>
             {% endif %}
-            <div class="card-body pt-0 " style="max-height:250px;">
-                <h5 class="card-title" style="font-size:1.9em">{{ product.name }}</h5>
+            <div class="card-body">
+                <h5 class="card-title" style="font-size:1.3em">{{ product.name }}</h5>
                 {% if product.old_price %}<del class="card-text text-danger" style="font-size:1.1em">{{ product.old_price|currency }}</del>{% endif %}<p class="card-text mb-0" style="font-size:1.5em">{{ product.price|currency }}</p>
-                <a href="{{ product.get_absolute_url }}" class="btn btn-dark btn-lg active rounded-0 text-center d-inline-block" role="button" aria-pressed="true">Read More</a>
+                <a href="{{ product.get_absolute_url }}" class="btn btn-dark btn-block btn-lg active rounded-0 text-center text-monospace" role="button" aria-pressed="true">Read More</a>
             </div>
         </div>
         {% empty %}
-        <p> Nothing to show </p>
+        <p class="font-italic"> No item found...</p>
         {% endfor %}   
     </div>
-    {% include 'assests/pagination.html'%}
+    {% include 'assets/pagination.html'%}
 </div>
 {% endblock content %}
 
