@@ -1,7 +1,44 @@
 {% extends 'base.html' %}
 {% load static %}
-{% load thumbnail %}
 {% load extras %}
+{% load thumbnail %}    
+{% block style %}
+<style>
+    h1 {
+        position: relative;
+        line-height: 1.2em;
+    }
+
+    h1:before {
+        position: absolute;
+        top: 1.2em;
+        height: 0;
+        width: 10%;
+        content: '';
+        margin-top:5px;
+        margin-bottom:5px;
+        border-top: 3px solid crimson;
+    }
+
+    .swiper-button-next:after, 
+    .swiper-container-rtl,
+    .swiper-button-prev:after{
+        content: none;
+    }
+    .swiper-button-next, 
+    .swiper-button-prev{
+        border-radius: 100%;
+    }
+    .swiper-pagination-bullet{
+        background: transparent;
+        opacity: .8;
+        border: 1px solid black;
+    }
+    .swiper-pagination-bullet-active{
+        background: #000;
+    }
+</style>
+{% endblock style %}}
 {% block content %}
 <section class="home mb-5">
     <div class="container vh-100">
@@ -13,51 +50,101 @@
     </div>
 </section>
 <div class="container">
-    <div class="row">
-        <div class="col">
-            <p class="display-4 text-center">Caskets & Coffins</p>
-        </div>
-    </div>
-    <div class="row infinite-container mb-3 list-items ez-animate-group">
-        {% for product in product_list %}
-        <div class="col-md-4 col-6 infinite-item ez-animate card bg-transparent shadow-sm border-0 h-100 border-0 mx-auto col-lg-3 overflow-hidden" data-animation="{% cycle "fadeInLeft" "fadeInRight" %}">
-            {% if product.image %}
-            <div class="d-flex align-items-center justify-content-center overflow-hidden test2">
-                {{ product.image.first.render }}
+    {% if caskets.count > 0 %}
+    <div class="row no-gutters mb-5 align-items-center justify-content-center">
+        <h1 class="text-capitalize mt-0 d-flex mr-auto">Caskets &amp; Coffins</h1>
+        <div class="swiper-container col-12 pb-5">
+            <div class="swiper-wrapper">
+                {% for p in caskets %}
+                <div class="swiper-slide">
+                    <div class="row">
+                        <div class="card col-12 border-0">
+                            <a href="{{ p.get_absolute_url }}" class="text-decoration-none text-dark">
+                                <div class="d-flex align-items-center justify-content-center overflow-hidden">
+                                    <picture>
+                                        {% thumbnail p.image.first.file "250x250" crop="center" as im %}
+                                        <source srcset="{{ im.url }}" type="image/svg+xml" media="(max-width: 320px)">
+                                        {% endthumbnail %}
+                                        {% thumbnail p.image.first.file "300x300" crop="center" as im %}
+                                        <source srcset="{{ im.url }}" type="image/svg+xml" media="(min-width: 321px) and (max-width: 991px)">
+                                        {% endthumbnail %}
+                                        {% thumbnail p.image.first.file "400x400" crop="center" as im %}
+                                        <source srcset="{{ im.url }}" type="image/svg+xml" media="(min-width: 992px)">
+                                        {% endthumbnail %}
+                                        <img src="{{ p.image.first.file.url }}" class="card-img-top mb-0" alt="...">
+                                    </picture>
+                                </div>    
+                                <div class="card-body py-0">
+                                    <h4 class="card-title font-weight-bold">{{ p.name }}</h4>
+                                    {% if p.old_price %}<del class="card-text text-danger h5">{{ p.old_price|currency }}</del>{% endif %}<p class="h4 card-text">{{ p.price|currency }}</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
             </div>
-            {% endif %}
-            <div class="card-body">
-                <h5 class="card-title" style="font-size:1.3em">{{ product.name }}</h5>
-                {% if product.old_price %}<del class="card-text text-danger" style="font-size:1.1em">{{ product.old_price|currency }}</del>{% endif %}<p class="card-text mb-0" style="font-size:1.5em">{{ product.price|currency }}</p>
-                <a href="{{ product.get_absolute_url }}" class="btn btn-dark btn-block btn-lg active rounded-0 text-center text-monospace" role="button" aria-pressed="true">Read More</a>
+            <div class="d-none d-lg-block swiper-button-prev">
+                <i class="fas text-black-50 fa-2x fa-angle-left"></i>
             </div>
+            <div class="d-none d-lg-block swiper-button-next">
+                <i class="fas text-black-50 fa-2x fa-angle-right"></i>
+            </div>
+            <div class="swiper-pagination swiper-pagination-bullets"></div>
         </div>
-        {% empty %}
-        <p class="font-italic"> No item found...</p>
-        {% endfor %}   
+        <a href="{% url 'products:collections' %}" class="btn btn-transparent text-decoration-none rounded-0 btn-lg p-4 font-weight-bold btn-outline-warning" role="button" style="font-size:9px;">VIEW ALL CASKETS</span>
+        </a>
     </div>
-    {% include 'assets/pagination.html'%}
+    {% endif %}
+    {% if events.count > 0 %}
+    <div class="row no-gutters mb-5 align-items-center justify-content-center">
+        <h1 class="text-capitalize mt-0 d-flex mr-auto">Event Gallery</h1>
+        <div class="row no-gutters border rounded justify-content-md-around py-3">
+            {% for event in events %}
+            {% for image in event.image.all %}
+            <div class="col-4 px-1 col-lg-3 col-md-3">
+                <figure class="figure mb-0">
+                    <img src="{{ image.file.url }}" class="img-fluid" />
+                    {% comment %} <figcaption class="figure-caption text-center">{{ event.name }}</figcaption> {% endcomment %}
+                </figure>
+            </div>
+            {% endfor %}
+            {% endfor %}
+        </div>
+        <a href="{% url 'events:event-list' %}" class="btn btn-transparent text-decoration-none rounded-0 btn-lg p-4 mt-2 font-weight-bold btn-outline-warning" role="button" style="font-size:9px;">VIEW GALLERY</span>
+        </a>
+    </div>
+    {% endif %}
 </div>
 {% endblock content %}
 
 {% block javascript %}
 <script src="{% static 'js/infinite.min.js' %}"></script>
 <script>
-    var infinite = new Waypoint.Infinite({
-        element: $('.infinite-container')[0],
-        handler: function(direction){
-
-    },
-    offset: 'bottom-in-view',
-
-    onBeforePageLoad: function(){
-        $('.spinner-grow').show();
-
-    },
-    onAfterPageLoad: function($this){
-        $('.spinner-grow').hide();
-    }
-    
+    var swiper = new Swiper('.swiper-container', {
+        grabCursor: true,
+        lazy: true,
+        preloadImages: false,
+        watchSlideVisibility: true,
+        pagination: {
+            el: '.swiper-pagination',
+            dynamicBullets: true,
+        },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev'
+        },
+        breakpoints: {
+            1024: {
+                slidesPerView: 4,
+            },
+            768: {
+                slidesPerView: 3,
+            },
+            320: {
+                slidesPerView: 2,
+            },
+        },
     });
 </script>
-{% endblock javascript %} 
+{% endblock javascript %}

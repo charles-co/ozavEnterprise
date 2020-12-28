@@ -3,9 +3,9 @@
 
 {% recursetree menus %}
     {% if node.slug == "home"%}
-    <li><a href={% url 'index' %}><i class="fas fa-home"></i> {{ node.name }}</a></li>
+    <a class="list-group-item navbar-width list-group-item-action d-flex justify-content-center align-items-center bg-transparent border-0" href={% url 'index' %}><i class="fas fa-home"></i>&nbsp;{{ node.name }}</a>
     {% else %}
-    <li><a href={% url 'products:navigation' node.slug %}>{{ node.name }}</a></li>
+    <a class="list-group-item navbar-width list-group-item-action d-flex justify-content-center align-items-center bg-transparent border-0" href={% url 'products:navigation' node.slug %}>{{ node.name }}</a>
     {% endif %}
     {% if not node.is_leaf_node %}
     <ul class="children d-none">

@@ -1,17 +1,14 @@
 {% load extras %}
 {% load static %}
 
-<nav class="navv t position-fixed">
-    
-    <div class="nav_container">
+<nav class="navv p-0 vw-100">
+    <div class="nav_container overflow-hidden px-md-5 d-flex justify-content-md-between align-items-md-center justify-content-center align-items-start">
         <div class="logo ez-animate" data-animation="slideInLeft">
             <a href="{% url 'index' %}" id="brand-name" class="text-dark">Ozav</a>
         </div>
-        <div id="mainListDiv" class="main_list">
-            <ul class="navlinks">
-                {% navigation_list %}
-            </ul>
-        </div>
+        <ul id="menu-wrapper" class="list-group list-unstyled list-group-horizontal show_list">
+            {% navigation_list %}
+        </ul>
         <span class="navTrigger">
             <i></i>
             <i></i>

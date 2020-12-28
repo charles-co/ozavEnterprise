@@ -59,6 +59,7 @@ class Navigation(View):
 
         elif self.kwargs['slug'] == 'events':
             return redirect('events:event-list')
+        return redirect('index')
 
 class Contact(FormView):
     form_class = ContactPostForm

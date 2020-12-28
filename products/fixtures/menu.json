@@ -1,0 +1,86 @@
+[
+{
+  "model": "products.menu",
+  "pk": 1,
+  "fields": {
+    "name": "Home",
+    "slug": "home",
+    "parent": null,
+    "is_active": true,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 1,
+    "level": 0
+  }
+},
+{
+  "model": "products.menu",
+  "pk": 3,
+  "fields": {
+    "name": "Services",
+    "slug": "services",
+    "parent": null,
+    "is_active": false,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 5,
+    "level": 0
+  }
+},
+{
+  "model": "products.menu",
+  "pk": 4,
+  "fields": {
+    "name": "About",
+    "slug": "about",
+    "parent": null,
+    "is_active": true,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 6,
+    "level": 0
+  }
+},
+{
+  "model": "products.menu",
+  "pk": 5,
+  "fields": {
+    "name": "Contact Us",
+    "slug": "contact-us",
+    "parent": null,
+    "is_active": true,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 7,
+    "level": 0
+  }
+},
+{
+  "model": "products.menu",
+  "pk": 6,
+  "fields": {
+    "name": "Events",
+    "slug": "events",
+    "parent": null,
+    "is_active": true,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 4,
+    "level": 0
+  }
+},
+{
+  "model": "products.menu",
+  "pk": 8,
+  "fields": {
+    "name": "Caskets",
+    "slug": "caskets",
+    "parent": null,
+    "is_active": true,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 3,
+    "level": 0
+  }
+}
+]

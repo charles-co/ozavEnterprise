@@ -1,9 +1,7 @@
 $('.navTrigger').click(function() {
     $(this).toggleClass('active');
     // console.log("Clicked menu");
-    $("#mainListDiv").toggleClass("show_list");
-    $("#mainListDiv").fadeIn();
-
+    $("#menu-wrapper").fadeToggle("3000");
 });
 
 function setFooterStyle() {
@@ -18,9 +16,15 @@ function setFooterStyle() {
     $('.footer').removeClass('invisible');
 }
 
+function setMargin(){
+    var elemHeight = $("body > div").height();
+    $('.top-margin').css('margin-top', (elemHeight + 5 + 'px'));
+}
+
 $(document).ready(function() {
     setFooterStyle();
     window.onresize = setFooterStyle;
+    setMargin();
 });
 
 $(window).on("load", function() {

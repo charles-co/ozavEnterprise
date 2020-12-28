@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy, reverse
 from django.views.generic.base import TemplateResponseMixin, View
 from django.views.generic.list import ListView
+from django.views.generic import TemplateView
 # from django.views.generic.detail import DetailView
 # from django.views.generic.edit import CreateView, UpdateView, DeleteView
 # from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
@@ -12,23 +13,24 @@ from django.views.generic.list import ListView
 # from django.forms.models import modelform_factory
 from django.db.models import Count
 # from braces.views import JsonRequestResponseMixin, CsrfExemptMixin
-from django.core.cache import cache
+# from django.core.cache import cache
 from products.models import Product, Menu
+from events.models import Event
 
-
-class Home(ListView):
-    model = Product
-    paginate_by = 6
-    paginate_orphans = 2
+class Home(TemplateView):
     template_name = 'index.html'
     
-    def get_queryset(self):
-        qs = super().get_queryset()   
-        return qs.filter(available=True).order_by('created')
+    def dispatch(self, request, *args, **kwargs):
+        if request.method == "GET":
+            self.caskets = Product.objects.filter(available=True)[:10].prefetch_related("image")
+            self.events = Event.objects.all()[:20].prefetch_related("image")
+        return super().dispatch(request, *args, **kwargs)
+    
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(**kwargs)
-        # context['menus'] = self.menus
+        context['caskets'] = self.caskets
+        context['events'] = self.events
         return context
 
 def handler404(request, exception):
