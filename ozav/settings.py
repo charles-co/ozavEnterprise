@@ -30,7 +30,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.43.184', '127.0.0.1', 'ozav.herokuapp.com', '*.pythonanywhere.com']
+ALLOWED_HOSTS = ['192.168.43.184', '127.0.0.1', '.ozav.com.ng', '*.pythonanywhere.com']
 
 
 # Application definition
@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'products',
     'events',
 
+    'captcha',
     'sorl.thumbnail',
     'mptt',
     'pagedown',
@@ -55,9 +56,9 @@ INSTALLED_APPS = [
     'markdown_deux',
     'admin_honeypot',
     'whitenoise.runserver_nostatic'
-
-
 ]
+RECAPTCHA_PRIVATE_KEY = os.environ.get("RECAPTCHA_PRIVATE_KEY") 
+RECAPTCHA_PUBLIC_KEY = os.environ.get("RECAPTCHA_PUBLIC_KEY") 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 EMAIL_HOST          = "smtp.gmail.com" 
 EMAIL_PORT          = "465"
@@ -160,9 +161,9 @@ STATICFILES_FINDERS = (
 )
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles/')
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'staticfiles'),
+    os.path.join(BASE_DIR, 'static'),
 )
 
 MEDIA_URL ='/media/'

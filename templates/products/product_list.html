@@ -16,8 +16,13 @@
         <div class="col">
             <p class="text-left"><a href={% url 'index' %}> <i class="fas fa-home"></i> Home</a><span class="text-muted"> / {{ sub }}</span></p>
         </div>
+        <div class="col-12 mb-4 overflow-hidden">
+            <div class="d-flex py-5 casket shadow align-items-center justify-content-center animate__animated animate__fadeInDown animate__slow">
+                <h5 class="my-5 display-3 text-white font-weight-bold" style="text-shadow: 1px 1px 3px #ffc107, 1px 1px 3px #7b07ff;">Caskets.</h5>
+            </div>
+        </div>
     </div>
-    <div class="row infinite-container mb-3 ez-animate-group">
+    <div class="row infinite-container mb-3 ez-animate-group overflow-hidden">
         {% for product in product_list %}
         <div class="col-md-4 col-6 card infinite-item shadow-sm h-100 border-0 col-lg-3 overflow-hidden ez-animate" data-animation="{% cycle "fadeInLeft" "fadeInRight" %}">
             {% if product.image %}
@@ -55,8 +60,6 @@
     onAfterPageLoad: function(){
         $('.spinner-grow').hide();
     }
-    
     });
-
 </script>
 {% endblock javascript %} 

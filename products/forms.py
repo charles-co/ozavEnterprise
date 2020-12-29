@@ -8,6 +8,7 @@ from crispy_forms.helper import FormHelper
 # from crispy_forms import css_id
 from crispy_forms.bootstrap import InlineField
 from crispy_forms.layout import Layout, Fieldset, ButtonHolder, Submit, MultiField, Div
+from captcha.fields import ReCaptchaField
 class ProductBodyForm(forms.ModelForm):
     description = forms.CharField(widget=AdminPagedownWidget)
 
@@ -17,24 +18,23 @@ class ProductBodyForm(forms.ModelForm):
 
 class ContactPostForm(forms.Form):
     name = forms.CharField(max_length=25, required=True, 
-        widget=forms.TextInput(attrs={'class': 'rounded-0', 'style': 'height:40px;font-size:20px;'}), 
+        widget=forms.TextInput(attrs={'class': '', 'style': 'height:40px;font-size:20px;'}), 
         label='<i class="fas fa-user"></i> Name'
     )
-    
     email = forms.EmailField(required=True, 
-        widget=forms.TextInput(attrs={'class': 'rouned-0', 'style': 'height:40px;font-size:20px;'}),
+        widget=forms.TextInput(attrs={'class': '', 'style': 'height:40px;font-size:20px;'}),
         label='<i class="fas fa-envelope-square"></i> E-mail'
     )
-    
     phone_number = forms.CharField(max_length=11, 
-        widget=forms.NumberInput(attrs={'type': 'tel', 'class': 'rounded-0', 'style': 'height:40px;font-size:20px;'}), 
+        widget=forms.NumberInput(attrs={'type': 'tel', 'class': '', 'style': 'height:40px;font-size:20px;'}), 
         label='<i class="fas fa-phone"></i> Phone Number'
-    )
-   
+    )   
     message = forms.CharField(required=True, 
-        widget=forms.Textarea(attrs={'class': 'rounded-0', 'style': 'font-size:20px;', 'rows': '5'}),
+        widget=forms.Textarea(attrs={'class': '', 'style': 'font-size:20px;', 'rows': '5'}),
         label='<i class="fas fa-comment"></i> Your Message'
     )
+    captcha = ReCaptchaField()
+
 
     def __init__(self, *args, **kwargs):
         super(ContactPostForm, self).__init__(*args, **kwargs)
@@ -53,4 +53,5 @@ class ContactPostForm(forms.Form):
             ),
            'phone_number',
            'message',
+           'captcha',
         )

@@ -1,9 +1,6 @@
 $('.navTrigger').click(function() {
     $(this).toggleClass('active');
-    // console.log("Clicked menu");
-    $("#mainListDiv").toggleClass("show_list");
-    $("#mainListDiv").fadeIn();
-
+    $("#menu-wrapper").fadeToggle("3000");
 });
 
 function setFooterStyle() {
@@ -18,9 +15,28 @@ function setFooterStyle() {
     $('.footer').removeClass('invisible');
 }
 
+function setCardHeight() {
+    var services = $('.services').height()
+    var contacts = $('.contacts').height()
+    var map = $('.map').height()
+    maxHeight = Math.max(services, contacts, map)
+    $('.services').css('height', maxHeight)
+    $('.contacts').css('height', maxHeight)
+    $('.map').css('height', maxHeight)
+}
+
+function setMargin(){
+    var elemHeight = $("body > div").height();
+    $('.top-margin').css('margin-top', (elemHeight + 5 + 'px'));
+}
+
 $(document).ready(function() {
     setFooterStyle();
-    window.onresize = setFooterStyle;
+    window.onresize = setFooterStyle();
+    window.onresize = setCardHeight();
+    window.onresize = setMargin();
+    setMargin();
+    setCardHeight();
 });
 
 $(window).on("load", function() {

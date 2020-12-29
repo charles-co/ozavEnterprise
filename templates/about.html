@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load thumbnail %}
 {% load extras %}
 {% block style %}
 <style>
@@ -15,31 +16,48 @@
         <div class="col-12 text-md-left">
             <p class="text-left"><a href={% url 'index' %}> <i class="fas fa-home"></i> Home</a><span class="text-muted"> / About </span></p>
             <p class="display-4 border-bottom border-danger">About</p>
-            <div class="jumbotron animate__animated animate__fadeIn animate__delay-1s">
-                <p class="h4 mb-4">
-                    <span class="h1 text-success d-inline-block">O</span>zav Caskets is a company offering a wide range of funeral caskets even for the most demanding clients. 
-                    We are partners with several large manufacturers, 
-                    so we can always provide our customers with the most affordable price and you can save thousands of dollars on funeral costs. 
-                    Our company achieves success in business through the care of its customers, 
-                    paying great attention to every detail. 
-                    We build our reputation by achieving a trusting relationship with customers in their most difficult time. 
-                    Our top priority is always to simplify the process for our customers 
-                    as much as possible to let you focus on what is important to you.
-                </p>
-                <p class="h4 mb-4">
-                    We fully understand our customers and their needs, 
-                    we also experienced the loss of loved ones, 
-                    and we know how difficult it could be for relatives 
-                    at such a tragic moment to handle all the funeral arrangements, 
-                    choose the right casket for loved one, and especially transportation arrangements.
-                    We know the value of time and don't look for cheap ways, our goal is quality service and proper results. 
-                </p>
-                <p class="h4 mb-4">
-                    We are very proud to be able to offer our customers 
-                    a wide assortment of different kinds of Wooden Funeral Caskets at a most affordable price. 
-                    If you are looking for a cremation casket or even oversized caskets, 
-                    we also can help you with that. We are here for you.
-                </p>
+            <div class="row">
+                <div class="col-12 mb-4 overflow-hidden">
+                    <div class="d-flex py-5 about shadow align-items-center justify-content-center animate__animated animate__fadeInDown animate__slow">
+                        <h5 class="card-title my-5 display-4 text-white font-weight-bold" style="text-shadow: 1px 1px 3px #ffc107, 1px 1px 3px #7b07ff;">Who We Are?</h5>
+                    </div>
+                </div>
+                <div class="col-md-6 animate__animated animate__fadeIn animate__delay-1s">
+                    <p class="h4 mb-4">
+                        <span class="h1 text-success d-inline-block">O</span>zav Caskets is a company offering a wide range of funeral caskets even for the most demanding clients. 
+                        We are partners with several large manufacturers, 
+                        so we can always provide our customers with the most affordable price and you can save thousands of dollars on funeral costs. 
+                        Our company achieves success in business through the care of its customers, 
+                        paying great attention to every detail. 
+                        We build our reputation by achieving a trusting relationship with customers in their most difficult time. 
+                        Our top priority is always to simplify the process for our customers 
+                        as much as possible to let you focus on what is important to you.
+                    </p>
+                    <p class="h4 mb-4">
+                        We fully understand our customers and their needs, 
+                        we also experienced the loss of loved ones, 
+                        and we know how difficult it could be for relatives 
+                        at such a tragic moment to handle all the funeral arrangements, 
+                        choose the right casket for loved one, and especially transportation arrangements.
+                        We know the value of time and don't look for cheap ways, our goal is quality service and proper results. 
+                    </p>
+                    <p class="h4 mb-4">
+                        We are very proud to be able to offer our customers 
+                        a wide assortment of different kinds of Wooden Funeral Caskets at a most affordable price. 
+                        If you are looking for a cremation casket or even oversized caskets, 
+                        we also can help you with that. We are here for you.
+                    </p>
+                </div>
+                <div class="col-md-6">
+                    <div class="col-12 px-0 px-md-auto mb-4 animate__animated animate__fadeIn animate__delay-2s">
+                        <h1 class="m-0 text-left text-success mb-2 font-weight-bold">Our Mission</h1>
+                        <p class="h4">Providing a one stop funeral services, through compassionate counseling, invaluable memorable experience and great assistance at an affordable cost.</p>
+                    </div>
+                    <div class="col-12 px-0 px-md-auto  animate__animated animate__fadeIn animate__delay-3s">
+                        <h1 class="m-0 text-left text-success mb-2 font-weight-bold">Our Vision</h1>
+                        <p class="h4">To be the first choice funeral home, offering world-class service with compassionate experience and invaluable service delivery.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

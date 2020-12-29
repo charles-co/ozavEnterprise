@@ -24,7 +24,9 @@
         <div class="col-6 col-lg-4 col-md-6 infinite-item ez-animate" data-animation="{% cycle 'backInUp' 'backInRight' 'backInDown' 'backInLeft' %}">
             <figure class="figure" >
                 {% comment %} {{ image.render }} {% endcomment %}
-                <img src="{{ image.file.url }}" class="img-fluid" />
+                <a href="{{ image.file.url }}">
+                    <img src="{{ image.file.url }}" class="img-fluid" />
+                </a>
                 <figcaption class="figure-caption text-center">{{ event.name }}</figcaption>
             </figure>
         </div>
