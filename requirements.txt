@@ -25,3 +25,4 @@ whitenoise
 django-admin-honeypot
 sorl-thumbnail==12.6.3
 django-tawkto==0.3
+django-recaptcha==2.0.6
