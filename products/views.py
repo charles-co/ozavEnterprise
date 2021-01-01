@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy, reverse
 from django.views.generic.base import TemplateResponseMixin, View
@@ -10,7 +11,6 @@ from django.core.mail import send_mail, send_mass_mail
 from django.db.models import Count
 from django.core.cache import cache
 from products.models import Product
-from products.forms import ContactPostForm
 # Create your views here.
 
 class ProductsViews(ListView):
@@ -48,9 +48,6 @@ class Navigation(View):
         if self.kwargs['slug'] == 'about':
             return render(request, 'about.html', {})
 
-        elif self.kwargs['slug'] == 'contact-us':
-            return redirect('products:contact-us')
-
         elif self.kwargs['slug'] == 'caskets':
             return redirect('products:collections')
 
@@ -60,19 +57,4 @@ class Navigation(View):
         elif self.kwargs['slug'] == 'events':
             return redirect('events:event-list')
         return redirect('index')
-
-class Contact(FormView):
-    form_class = ContactPostForm
-    template_name = 'contact-us.html'
-    success_url = reverse_lazy('products:contact-us')
-
-    def form_valid(self, form):
-        cd = form.cleaned_data
-        subject = 'Feedback from {} <{}>'.format(cd['name'], cd['email'])
-        html_message = render_to_string('contact_us/email_template.html', {'email': cd['email'], 'name': cd['name'], 'message': cd['message'], 'phone': cd['phone_number']})
-        message = 'Message' + '-'*30 + '\n\n{}'.format(cd["message"])
-        sent = send_mail(subject, message, 'ch4rles.co@gmail.com', ['charlesboy49@gmail.com'], html_message=html_message, fail_silently=False)
-        if sent:
-            messages.success(self.request, "<strong>Hi {} !</strong> Your mail has been sent successfully, thank you.".format(cd['name']))
-        return super(Contact, self).form_valid(form)
 

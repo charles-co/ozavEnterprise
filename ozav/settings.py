@@ -57,16 +57,11 @@ INSTALLED_APPS = [
     'admin_honeypot',
     'whitenoise.runserver_nostatic'
 ]
+
 RECAPTCHA_PRIVATE_KEY = os.environ.get("RECAPTCHA_PRIVATE_KEY") 
-RECAPTCHA_PUBLIC_KEY = os.environ.get("RECAPTCHA_PUBLIC_KEY") 
+RECAPTCHA_PUBLIC_KEY = os.environ.get("RECAPTCHA_PUBLIC_KEY")
+
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
-EMAIL_HOST          = "smtp.gmail.com" 
-EMAIL_PORT          = "465"
-EMAIL_HOST_USER     = os.environ.get("GMAIL")
-EMAIL_HOST_PASSWORD = os.environ.get("GMAIL_PASSWORD")
-EMAIL_USE_SSL       = True # Yes for Gmail
-DEFAULT_FROM_EMAIL  = "Ozav Caskets <ozavolorunfemi@gmail.com>"
-SERVER_EMAIL        = DEFAULT_FROM_EMAIL
 
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
