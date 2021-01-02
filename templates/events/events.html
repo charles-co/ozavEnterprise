@@ -22,7 +22,7 @@
     <div class="row no-gutters infinite-container justify-content-center ez-animate-group">
         {% for event in event_list %}
         {% for image in event.image.all %}
-        <div class="col-6 col-lg-3 col-md-4 infinite-item ez-animate {% if image.file|is_portrait %}order-{{ forloop.counter0 }}{% endif %}" data-animation="fadeInUp" data-animation-delay="{% cycle '1s' '2s' %}">
+        <div class="col-6 col-lg-3 col-md-4 infinite-item ez-animate {% if image.file|is_portrait %}order-{{ forloop.counter }}{% endif %}" data-animation="fadeInUp" data-animation-delay="{% cycle '1s' '2s' %}">
             <figure class="figure" >
                 {% comment %} {{ image.render }} {% endcomment %}
                 <a href="{{ image.file.url }}">
