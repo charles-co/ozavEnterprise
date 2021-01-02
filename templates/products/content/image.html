@@ -1,12 +1,12 @@
 {% load thumbnail %}
 <picture>
-    {% thumbnail item.file "158x158" crop="center" as im %}
+    {% thumbnail item.file "300x300" padding=True as im %}
     <source srcset="{{ im.url }}" type="image/svg+xml" media="(max-width: 480px)">
     {% endthumbnail %}
-    {% thumbnail item.file "210x210" crop="center" as im %}
+    {% thumbnail item.file "210x210" padding=True as im %}
     <source srcset="{{ im.url }}" type="image/svg+xml" media="(min-width: 768px) and (max-width: 1199)">
     {% endthumbnail %}
-    {% thumbnail item.file "255x255" crop="center" as im %}
+    {% thumbnail item.file "255x255" padding=True as im %}
     <source srcset="{{ im.url }}" type="image/svg+xml" media="(min-width: 1200px)">
     {% endthumbnail %}
     <img src="{{ item.file.url }}" class="card-img-top mb-0" alt="...">

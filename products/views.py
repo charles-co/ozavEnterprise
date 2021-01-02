@@ -51,9 +51,8 @@ class Navigation(View):
         elif self.kwargs['slug'] == 'caskets':
             return redirect('products:collections')
 
-        elif self.kwargs['slug'] == 'services':
-            return render(request, 'services.html', {})
-
+        # elif self.kwargs['slug'] == 'services':
+        #     return render(request, 'services.html', {})
         elif self.kwargs['slug'] == 'events':
             return redirect('events:event-list')
         return redirect('index')
