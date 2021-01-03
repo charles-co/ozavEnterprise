@@ -22,7 +22,7 @@ class Home(TemplateView):
     
     def dispatch(self, request, *args, **kwargs):
         if request.method == "GET":
-            self.caskets = Product.objects.filter(available=True)[:10].prefetch_related("image").order_by('price')
+            self.caskets = Product.objects.filter(available=True).order_by('price').prefetch_related("image")[:10]
             self.events = Event.objects.all()[:20].prefetch_related("image")
         return super().dispatch(request, *args, **kwargs)
     
