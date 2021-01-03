@@ -21,7 +21,7 @@ class ProductsViews(ListView):
     
     def get_queryset(self):
         qs = super().get_queryset()   
-        return qs.filter(available=True).order_by('created')
+        return qs.filter(available=True).order_by('price')
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(**kwargs)
