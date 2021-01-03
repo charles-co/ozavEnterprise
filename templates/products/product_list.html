@@ -22,9 +22,9 @@
             </div>
         </div>
     </div>
-    <div class="row infinite-container mb-3 ez-animate-group overflow-hidden">
+    <div class="row infinite-container mb-3 overflow-hidden">
         {% for product in product_list %}
-        <div class="col-md-4 col-12 card infinite-item shadow-sm h-100 border-0 col-lg-3 overflow-hidden ez-animate" data-animation="{% cycle "fadeInLeft" "fadeInRight" %}">
+        <div class="col-md-4 col-12 card infinite-item shadow-sm h-100 border-0 col-lg-3 overflow-hidden ez-animate" data-animation-delay="1s" data-animation-duration="slower" data-animation="{% cycle 'fadeInLeft' 'fadeInRight' %}">
             {% if product.image %}
             <div class="d-flex align-items-center justify-content-center overflow-hidden test2">
                 <a href="{{ product.image.first.file.url }}" target="_blank">{{ product.image.first.render }}</a>
@@ -32,7 +32,7 @@
             {% endif %}
             <div class="card-body pt-0">
                 <h5 class="card-title text-center" style="font-size:1.3em">{{ product.name }}</h5>
-                {% if product.old_price %}<del class="card-text text-danger" style="font-size:1.1em">{{ product.old_price|currency }}</del> {% endif %}<p class="card-text mb-0 text-success" style="font-size:1.5em">{{ product.price|currency }}</p>
+                {% if product.old_price %}<p class="text-center"><del class="card-text text-danger" style="font-size:1.1em">{{ product.old_price|currency }}</del></p>{% endif %}<p class="card-text mb-0 text-success text-center" style="font-size:1.5em">{{ product.price|currency }}</p>
                 {% comment %} <a href="{% url 'products:collection-product-detail' product.slug %}" class="btn btn-dark btn-block btn-lg active rounded-0 text-center text-monospace" role="button" aria-pressed="true">Read More</a> {% endcomment %}
             </div>
         </div>
